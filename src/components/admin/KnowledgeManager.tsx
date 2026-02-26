@@ -130,7 +130,7 @@ export default function KnowledgeManager() {
   return (
     <div>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '30px' }}>
-        <h2 style={{ background: 'none', color: 'white' }}>Base de Conhecimento</h2>
+        <h2>Base de Conhecimento</h2>
         <button onClick={() => setShowForm(!showForm)} className="btn" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           {showForm ? <><X size={18} /> Cancelar</> : <><Plus size={18} /> Nova Referência</>}
         </button>
@@ -194,7 +194,7 @@ export default function KnowledgeManager() {
         {items.map(item => (
           <div key={item.id} style={{ padding: '20px', borderBottom: '1px solid var(--border)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <div style={{ flex: 1 }}>
-              <h4 style={{ margin: 0, color: 'white', background: 'none' }}>{item.title}</h4>
+              <h4 style={{ margin: 0 }}>{item.title}</h4>
               <p style={{ margin: '5px 0', fontSize: '0.8rem', color: 'var(--text-dim)' }}>{item.category} • {item.url}</p>
               {item.related_projects && item.related_projects.length > 0 && (
                 <div style={{ display: 'flex', gap: '5px', marginTop: '8px' }}>

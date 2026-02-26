@@ -41,7 +41,7 @@ export default function ContactManager() {
 
   return (
     <div>
-      <h2 style={{ background: 'none', color: 'white', marginBottom: '30px' }}>Mensagens de Contato</h2>
+      <h2 style={{ marginBottom: '30px' }}>Mensagens de Contato</h2>
       
       <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
         {messages.map(msg => (

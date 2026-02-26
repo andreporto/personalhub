@@ -123,7 +123,7 @@ export default function ProjectManager() {
   return (
     <div>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '30px' }}>
-        <h2 style={{ background: 'none', color: 'white' }}>Gestão de Projetos</h2>
+        <h2>Gestão de Projetos</h2>
         <button onClick={() => setShowForm(!showForm)} className="btn" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           {showForm ? <><X size={18} /> Cancelar</> : <><Plus size={18} /> Novo Projeto</>}
         </button>

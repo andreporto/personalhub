@@ -97,7 +97,7 @@ export default function KanbanManager() {
   return (
     <div>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '30px' }}>
-        <h2 style={{ background: 'none', color: 'white' }}>Gestão do Kanban</h2>
+        <h2>Gestão do Kanban</h2>
         <div style={{ display: 'flex', gap: '15px' }}>
           <button onClick={() => setShowForm(!showForm)} className="btn" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             {showForm ? <><X size={18} /> Cancelar</> : <><Plus size={18} /> Nova Tarefa</>}

@@ -2,11 +2,13 @@
 import { useState, useEffect } from 'react'
 import { supabase } from '@/lib/supabase'
 import { Key, Save, AlertCircle, CheckCircle, Palette } from 'lucide-react'
+import { useRouter } from 'next/navigation'
 
 const THEMES = [
   { id: 'default', name: 'Padrão (Cyber)', colors: ['#00c6ff', '#0072ff', '#ff00c8'] },
   { id: 'ocean', name: 'Oceano', colors: ['#00d2ff', '#3a7bd5', '#00ffcc'] },
   { id: 'sunset', name: 'Pôr do Sol', colors: ['#ff512f', '#dd2476', '#ffac33'] },
+  { id: 'vibrant', name: 'Vibrante', colors: ['#8e2de2', '#4a00e0', '#f000ff'] },
   { id: 'purple', name: 'Púrpura', colors: ['#da22ff', '#9733ee', '#00d2ff'] },
   { id: 'brazil', name: 'Brasil', colors: ['#009c3b', '#ffdf00', '#002776'] },
   { id: 'quebec', name: 'Québec (Canadá)', colors: ['#003399', '#ffffff', '#003399'] },
@@ -24,6 +26,7 @@ export default function SettingsManager() {
   const [loading, setLoading] = useState(false)
   const [message, setMessage] = useState<{ type: 'success' | 'error', text: string } | null>(null)
   const [currentTheme, setCurrentTheme] = useState('default')
+  const router = useRouter()
 
   useEffect(() => {
     async function fetchTheme() {
@@ -51,6 +54,8 @@ export default function SettingsManager() {
 
     if (error) {
       alert('Erro ao salvar tema no banco: ' + error.message)
+    } else {
+      router.refresh()
     }
   }
 
@@ -83,7 +88,7 @@ export default function SettingsManager() {
 
   return (
     <div style={{ maxWidth: '600px' }}>
-      <h2 style={{ background: 'none', color: 'white', marginBottom: '30px' }}>Configurações do Hub</h2>
+      <h2 style={{ marginBottom: '30px' }}>Configurações do Hub</h2>
 
       {/* Seletor de Cores */}
       <div className="glass" style={{ padding: '30px', marginBottom: '30px' }}>
