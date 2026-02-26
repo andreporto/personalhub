@@ -147,7 +147,7 @@ body::after {
 }
 
 h1, h2, h3 {
-  background: var(--gradient);
+  background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -161,7 +161,7 @@ h1, h2, h3 {
 }
 
 button, .btn {
-  background: var(--gradient);
+  background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
   color: white;
   border: none;
   padding: 10px 20px;
