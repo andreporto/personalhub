@@ -1,13 +1,41 @@
 'use client'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { supabase } from '@/lib/supabase'
-import { Key, Save, AlertCircle, CheckCircle } from 'lucide-react'
+import { Key, Save, AlertCircle, CheckCircle, Palette } from 'lucide-react'
+
+const THEMES = [
+  { id: 'default', name: 'Padrão (Cyber)', colors: ['#00c6ff', '#0072ff', '#ff00c8'] },
+  { id: 'ocean', name: 'Oceano', colors: ['#00d2ff', '#3a7bd5', '#00ffcc'] },
+  { id: 'sunset', name: 'Pôr do Sol', colors: ['#ff512f', '#dd2476', '#ffac33'] },
+  { id: 'purple', name: 'Púrpura', colors: ['#da22ff', '#9733ee', '#00d2ff'] },
+  { id: 'brazil', name: 'Brasil', colors: ['#009c3b', '#ffdf00', '#002776'] },
+  { id: 'quebec', name: 'Québec (Canadá)', colors: ['#003399', '#ffffff', '#003399'] },
+  { id: 'matrix', name: 'Matrix', colors: ['#00ff41', '#008f11', '#003b00'] },
+]
 
 export default function SettingsManager() {
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [loading, setLoading] = useState(false)
   const [message, setMessage] = useState<{ type: 'success' | 'error', text: string } | null>(null)
+  
+  const [currentTheme, setCurrentTheme] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('hub-theme') || 'default'
+    }
+    return 'default'
+  })
+
+  const changeTheme = (themeId: string) => {
+    setCurrentTheme(themeId)
+    localStorage.setItem('hub-theme', themeId)
+    document.documentElement.setAttribute('data-theme', themeId)
+  }
+
+  useEffect(() => {
+    const savedTheme = localStorage.getItem('hub-theme') || 'default'
+    document.documentElement.setAttribute('data-theme', savedTheme)
+  }, [])
 
   async function handlePasswordChange(e: React.FormEvent) {
     e.preventDefault()
@@ -38,7 +66,46 @@ export default function SettingsManager() {
 
   return (
     <div style={{ maxWidth: '600px' }}>
-      <h2 style={{ background: 'none', color: 'white', marginBottom: '30px' }}>Configurações de Perfil</h2>
+      <h2 style={{ background: 'none', color: 'white', marginBottom: '30px' }}>Configurações do Hub</h2>
+
+      {/* Seletor de Cores */}
+      <div className="glass" style={{ padding: '30px', marginBottom: '30px' }}>
+        <h3 style={{ fontSize: '1.1rem', marginBottom: '20px', display: 'flex', alignItems: 'center', gap: '10px' }}>
+          <Palette size={20} className="text-primary" /> Paleta de Cores
+        </h3>
+        
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '15px' }}>
+          {THEMES.map(theme => (
+            <div 
+              key={theme.id}
+              onClick={() => changeTheme(theme.id)}
+              style={{ 
+                padding: '15px', 
+                borderRadius: '8px', 
+                background: currentTheme === theme.id ? 'rgba(255,255,255,0.08)' : 'rgba(255,255,255,0.02)',
+                border: currentTheme === theme.id ? '2px solid var(--primary)' : '1px solid var(--border)',
+                cursor: 'pointer',
+                transition: 'all 0.2s',
+                textAlign: 'center'
+              }}
+            >
+              <div style={{ 
+                display: 'flex', 
+                justifyContent: 'center', 
+                gap: '5px', 
+                marginBottom: '10px' 
+              }}>
+                {theme.colors.map((c, i) => (
+                  <div key={i} style={{ width: '15px', height: '15px', borderRadius: '50%', background: c }} />
+                ))}
+              </div>
+              <span style={{ fontSize: '0.85rem', color: currentTheme === theme.id ? 'white' : 'var(--text-dim)' }}>
+                {theme.name}
+              </span>
+            </div>
+          ))}
+        </div>
+      </div>
 
       <div className="glass" style={{ padding: '30px' }}>
         <h3 style={{ fontSize: '1.1rem', marginBottom: '20px', display: 'flex', alignItems: 'center', gap: '10px' }}>

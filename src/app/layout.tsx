@@ -15,6 +15,16 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-br">
+      <head>
+        <script dangerouslySetInnerHTML={{
+          __html: `
+            (function() {
+              const theme = localStorage.getItem('hub-theme') || 'default';
+              document.documentElement.setAttribute('data-theme', theme);
+            })()
+          `
+        }} />
+      </head>
       <body>
         <nav className="glass" style={{ position: 'fixed', top: 20, left: '50%', transform: 'translateX(-50%)', width: '90%', maxWidth: '1000px', zIndex: 100, padding: '10px 20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <div style={{ fontWeight: 'bold', fontSize: '1.2rem' }}>Personal Hub</div>
