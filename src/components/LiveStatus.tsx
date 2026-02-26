@@ -1,3 +1,7 @@
+/**
+ * Seção 'Agora' do Hub: Exibe dinamicamente o status atual de produtividade.
+ * Puxa tarefas em progresso e as últimas notas de estudo em tempo real.
+ */
 'use client'
 import { useState, useEffect } from 'react'
 import { supabase } from '@/lib/supabase'

@@ -1,3 +1,7 @@
+/**
+ * Dashboard Admin - Gestor de Tarefas: Interface CRUD para o Kanban.
+ * Permite criar, editar e organizar o roadmap de estudos e projetos.
+ */
 'use client'
 import { useState, useEffect } from 'react'
 import { supabase } from '@/lib/supabase'

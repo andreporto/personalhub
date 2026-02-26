@@ -1,3 +1,7 @@
+/**
+ * Formulário de Contato público para captura de leads e mensagens.
+ * Os dados são persistidos diretamente na tabela 'contacts' do Supabase.
+ */
 'use client'
 import { useState } from 'react'
 import { supabase } from '@/lib/supabase'

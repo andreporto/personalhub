@@ -1,3 +1,7 @@
+/**
+ * Base de Conhecimento (Digital Garden): Listagem de notas e estudos.
+ * Oferece busca global por texto e filtros dinâmicos por categoria.
+ */
 'use client'
 import { useState, useEffect } from 'react'
 import { supabase } from '@/lib/supabase'

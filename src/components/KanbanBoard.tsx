@@ -1,3 +1,7 @@
+/**
+ * Quadro Kanban interativo com funcionalidade Drag-and-Drop.
+ * Sincroniza o estado das tarefas e a ordem de exibição com o Supabase.
+ */
 'use client'
 import { useState, useEffect } from 'react'
 import { supabase } from '@/lib/supabase'

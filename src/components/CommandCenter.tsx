@@ -1,3 +1,7 @@
+/**
+ * Command Center (CMD+K): Interface de busca global instantânea.
+ * Permite buscar projetos, notas de conhecimento e tarefas em todo o Hub.
+ */
 'use client'
 import { useState, useEffect, useRef } from 'react'
 import { supabase } from '@/lib/supabase'

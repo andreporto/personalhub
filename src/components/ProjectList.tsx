@@ -1,3 +1,7 @@
+/**
+ * Galeria de Projetos: Renderiza a listagem de projetos com filtragem.
+ * Integra-se com o Grafo de Conhecimento para exibir estudos relacionados.
+ */
 'use client'
 import { useState, useEffect } from 'react'
 import { supabase } from '@/lib/supabase'

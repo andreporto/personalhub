@@ -1,3 +1,7 @@
+/**
+ * Dashboard Admin - Configurações: Central de personalização do Hub.
+ * Gerencia a troca global de temas (Supabase) e alteração de credenciais.
+ */
 'use client'
 import { useState, useEffect } from 'react'
 import { supabase } from '@/lib/supabase'

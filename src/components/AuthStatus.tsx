@@ -1,3 +1,7 @@
+/**
+ * Componente que exibe o status de autenticação do usuário (logado ou não)
+ * e fornece o link de login ou o e-mail do usuário autenticado.
+ */
 'use client'
 import { useEffect, useState } from 'react'
 import { supabase } from '@/lib/supabase'

@@ -1,3 +1,7 @@
+/**
+ * Dashboard Admin - Gestor de Projetos: CRUD completo de projetos.
+ * Suporta upload de imagens diretamente para o Supabase Storage.
+ */
 'use client'
 import { useState, useEffect } from 'react'
 import { supabase } from '@/lib/supabase'

@@ -1,3 +1,7 @@
+/**
+ * Dashboard Admin - Gestor de Conhecimento: Interface CRUD para Notas.
+ * Inclui funcionalidade para vincular notas a projetos específicos.
+ */
 'use client'
 import { useState, useEffect } from 'react'
 import { supabase } from '@/lib/supabase'

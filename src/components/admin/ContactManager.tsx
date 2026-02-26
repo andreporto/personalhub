@@ -1,3 +1,7 @@
+/**
+ * Dashboard Admin - Inbox de Contatos: Gerencia as mensagens recebidas.
+ * Permite marcar como lida e excluir leads diretamente do painel.
+ */
 'use client'
 import { useState, useEffect } from 'react'
 import { supabase } from '@/lib/supabase'
