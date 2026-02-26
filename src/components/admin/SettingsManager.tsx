@@ -11,6 +11,11 @@ const THEMES = [
   { id: 'brazil', name: 'Brasil', colors: ['#009c3b', '#ffdf00', '#002776'] },
   { id: 'quebec', name: 'Québec (Canadá)', colors: ['#003399', '#ffffff', '#003399'] },
   { id: 'matrix', name: 'Matrix', colors: ['#00ff41', '#008f11', '#003b00'] },
+  { id: 'midnight', name: 'Midnight Blue', colors: ['#2c3e50', '#4ca1af', '#00c6ff'] },
+  { id: 'emerald', name: 'Emerald City', colors: ['#11998e', '#38ef7d', '#00ff88'] },
+  { id: 'nord', name: 'Nordic Frost', colors: ['#81a1c1', '#88c0d0', '#b48ead'] },
+  { id: 'crimson', name: 'Crimson Red', colors: ['#e52d27', '#b31217', '#ff5f6d'] },
+  { id: 'gold', name: 'Luxury Gold', colors: ['#d4af37', '#f9d423', '#ffefba'] },
 ]
 
 export default function SettingsManager() {
