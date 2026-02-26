@@ -13,11 +13,11 @@ const THEMES = [
   { id: 'brazil', name: 'Brasil', colors: ['#009c3b', '#ffdf00', '#002776'] },
   { id: 'quebec', name: 'Québec (Canadá)', colors: ['#003399', '#ffffff', '#003399'] },
   { id: 'matrix', name: 'Matrix', colors: ['#00ff41', '#008f11', '#003b00'] },
-  { id: 'midnight', name: 'Midnight Blue', colors: ['#2c3e50', '#4ca1af', '#00c6ff'] },
-  { id: 'emerald', name: 'Emerald City', colors: ['#11998e', '#38ef7d', '#00ff88'] },
-  { id: 'nord', name: 'Nordic Frost', colors: ['#81a1c1', '#88c0d0', '#b48ead'] },
-  { id: 'crimson', name: 'Crimson Red', colors: ['#e52d27', '#b31217', '#ff5f6d'] },
-  { id: 'gold', name: 'Luxury Gold', colors: ['#d4af37', '#f9d423', '#ffefba'] },
+  { id: 'midnight', name: 'Midnight Blue', colors: ['#3498db', '#2c3e50', '#00c6ff'] },
+  { id: 'emerald', name: 'Emerald City', colors: ['#2ecc71', '#27ae60', '#00ff88'] },
+  { id: 'nord', name: 'Nordic Frost', colors: ['#88c0d0', '#81a1c1', '#b48ead'] },
+  { id: 'crimson', name: 'Crimson Red', colors: ['#ff416c', '#ff4b2b', '#ff5f6d'] },
+  { id: 'gold', name: 'Luxury Gold', colors: ['#f1c40f', '#d4af37', '#ffefba'] },
 ]
 
 export default function SettingsManager() {
@@ -44,19 +44,23 @@ export default function SettingsManager() {
   }, [])
 
   const changeTheme = async (themeId: string) => {
+    // 1. Update UI immediately
     setCurrentTheme(themeId)
     document.documentElement.setAttribute('data-theme', themeId)
     
+    // 2. Persist to DB
     const { error } = await supabase
       .from('site_settings')
       .update({ theme_id: themeId })
       .eq('id', 'global_config')
 
     if (error) {
+      console.error('Database Error:', error)
       alert('Erro ao salvar tema no banco: ' + error.message)
-    } else {
-      router.refresh()
     }
+    
+    // 3. Refresh to sync server components
+    router.refresh()
   }
 
   async function handlePasswordChange(e: React.FormEvent) {

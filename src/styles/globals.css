@@ -11,77 +11,18 @@
   --border: rgba(0, 198, 255, 0.1);
 }
 
-[data-theme='ocean'] {
-  --primary: #00d2ff;
-  --secondary: #3a7bd5;
-  --accent: #00ffcc;
-}
-
-[data-theme='sunset'] {
-  --primary: #ff512f;
-  --secondary: #dd2476;
-  --accent: #ffac33;
-}
-
-[data-theme='vibrant'] {
-  --primary: #8e2de2;
-  --secondary: #4a00e0;
-  --accent: #f000ff;
-}
-
-[data-theme='purple'] {
-  --primary: #da22ff;
-  --secondary: #9733ee;
-  --accent: #00d2ff;
-}
-
-[data-theme='brazil'] {
-  --primary: #009c3b; /* Green */
-  --secondary: #ffdf00; /* Yellow */
-  --accent: #002776; /* Blue */
-}
-
-[data-theme='quebec'] {
-  --primary: #003399; /* Blue */
-  --secondary: #ffffff; /* White */
-  --accent: #003399;
-}
-
-[data-theme='matrix'] {
-  --primary: #00ff41;
-  --secondary: #008f11;
-  --accent: #003b00;
-}
-
-[data-theme='midnight'] {
-  --primary: #2c3e50;
-  --secondary: #4ca1af;
-  --accent: #00c6ff;
-}
-
-[data-theme='emerald'] {
-  --primary: #11998e;
-  --secondary: #38ef7d;
-  --accent: #00ff88;
-}
-
-[data-theme='nord'] {
-  --primary: #81a1c1;
-  --secondary: #88c0d0;
-  --accent: #b48ead;
-}
-
-[data-theme='crimson'] {
-  --primary: #e52d27;
-  --secondary: #b31217;
-  --accent: #ff5f6d;
-}
-
-[data-theme='gold'] {
-  --primary: #d4af37;
-  --secondary: #f9d423;
-  --accent: #ffefba;
-}
+html[data-theme='ocean'] { --primary: #00d2ff; --secondary: #3a7bd5; --accent: #00ffcc; }
+html[data-theme='sunset'] { --primary: #ff512f; --secondary: #dd2476; --accent: #ffac33; }
+html[data-theme='vibrant'] { --primary: #8e2de2; --secondary: #4a00e0; --accent: #f000ff; }
+html[data-theme='purple'] { --primary: #da22ff; --secondary: #9733ee; --accent: #00d2ff; }
+html[data-theme='brazil'] { --primary: #009c3b; --secondary: #ffdf00; --accent: #002776; }
+html[data-theme='quebec'] { --primary: #003399; --secondary: #ffffff; --accent: #003399; }
+html[data-theme='matrix'] { --primary: #00ff41; --secondary: #008f11; --accent: #003b00; }
+html[data-theme='midnight'] { --primary: #3498db; --secondary: #2c3e50; --accent: #00c6ff; }
+html[data-theme='emerald'] { --primary: #2ecc71; --secondary: #27ae60; --accent: #00ff88; }
+html[data-theme='nord'] { --primary: #88c0d0; --secondary: #81a1c1; --accent: #b48ead; }
+html[data-theme='crimson'] { --primary: #ff416c; --secondary: #ff4b2b; --accent: #ff5f6d; }
+html[data-theme='gold'] { --primary: #f1c40f; --secondary: #d4af37; --accent: #ffefba; }
 
 * {
   margin: 0;
