@@ -6,11 +6,13 @@
   --accent: #ff00c8;
   --text-light: #f0f8ff;
   --text-dim: #a0d2ff;
-  --gradient: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
   --card-bg: rgba(10, 20, 40, 0.6);
   --border: rgba(0, 198, 255, 0.1);
+  /* O segredo está aqui: o gradiente deve sempre usar as variáveis vivas */
+  --gradient: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
 }
 
+/* Temas com alta especificidade */
 html[data-theme='ocean'] { --primary: #00d2ff; --secondary: #3a7bd5; --accent: #00ffcc; }
 html[data-theme='sunset'] { --primary: #ff512f; --secondary: #dd2476; --accent: #ffac33; }
 html[data-theme='vibrant'] { --primary: #8e2de2; --secondary: #4a00e0; --accent: #f000ff; }
@@ -88,11 +90,12 @@ body::after {
   padding: 0 20px;
 }
 
-h1, h2, h3 {
-  background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
+h1, h2, h3, h4 {
+  background: var(--gradient);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+  display: inline-block; /* Necessário para o background-clip funcionar bem */
 }
 
 .glass {
@@ -103,7 +106,7 @@ h1, h2, h3 {
 }
 
 button, .btn {
-  background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
+  background: var(--gradient);
   color: white;
   border: none;
   padding: 10px 20px;
@@ -111,8 +114,12 @@ button, .btn {
   cursor: pointer;
   font-weight: bold;
   transition: transform 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
 }
 
-button:hover {
+button:hover, .btn:hover {
   transform: translateY(-2px);
+  opacity: 0.9;
 }

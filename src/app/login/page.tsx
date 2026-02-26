@@ -90,13 +90,11 @@ export default function LoginPage() {
 
           <button 
             type="submit" 
+            className="btn"
             disabled={loading}
             style={{ 
-              display: 'flex', 
-              alignItems: 'center', 
-              justifyContent: 'center', 
-              gap: '10px',
-              padding: '12px'
+              width: '100%',
+              justifyContent: 'center'
             }}
           >
             {loading ? 'Entrando...' : <>Acessar Painel <LogIn size={18} /></>}
