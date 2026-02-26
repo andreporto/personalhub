@@ -16,5 +16,5 @@ ALTER TABLE site_settings ENABLE ROW LEVEL SECURITY;
 CREATE POLICY "Allow public read for site_settings" ON site_settings FOR SELECT USING (true);
 
 -- Apenas usuários autenticados (você) podem alterar o tema
-CREATE POLICY "Allow auth update for site_settings" ON site_settings 
-FOR UPDATE TO authenticated USING (id = 'global_config') WITH CHECK (id = 'global_config');
+CREATE POLICY "Allow auth all for site_settings" ON site_settings 
+FOR ALL TO authenticated USING (true) WITH CHECK (true);
