@@ -42,7 +42,7 @@ export default function Home() {
       </section>
 
       <footer style={{ textAlign: 'center', padding: '40px', color: 'var(--text-dim)', borderTop: '1px solid var(--border)' }}>
-        © 2026 Personal Hub Portfolio. Desenvolvido com Next.js & Supabase.
+        © 2026 Personal Hub Portfolio. Todos os direitos reservados.
       </footer>
     </main>
   )

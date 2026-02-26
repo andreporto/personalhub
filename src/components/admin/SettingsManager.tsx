@@ -5,7 +5,7 @@
 'use client'
 import { useState, useEffect } from 'react'
 import { supabase } from '@/lib/supabase'
-import { Key, Save, AlertCircle, CheckCircle, Palette } from 'lucide-react'
+import { Key, Save, AlertCircle, CheckCircle, Palette, Download, Database } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 
 const THEMES = [
@@ -65,6 +65,53 @@ export default function SettingsManager() {
     
     // 3. Refresh to sync server components
     router.refresh()
+  }
+
+  const [backupLoading, setBackupLoading] = useState(false)
+
+  const handleExportBackup = async () => {
+    try {
+      setBackupLoading(true)
+      const tables = [
+        'projects', 
+        'knowledge_base', 
+        'kanban_tasks', 
+        'contacts', 
+        'activity_log', 
+        'site_settings', 
+        'project_knowledge'
+      ]
+
+      const backupData: any = {}
+
+      const fetchPromises = tables.map(async (table) => {
+        const { data, error } = await supabase.from(table).select('*')
+        if (error) throw error
+        backupData[table] = data
+      })
+
+      await Promise.all(fetchPromises)
+
+      // Create and download file
+      const blob = new Blob([JSON.stringify(backupData, null, 2)], { type: 'application/json' })
+      const url = URL.createObjectURL(blob)
+      const link = document.createElement('a')
+      const date = new Date().toISOString().split('T')[0]
+      
+      link.href = url
+      link.download = `personal-hub-backup-${date}.json`
+      document.body.appendChild(link)
+      link.click()
+      document.body.removeChild(link)
+      URL.revokeObjectURL(url)
+
+      alert('Backup gerado e baixado com sucesso!')
+    } catch (error: any) {
+      console.error('Backup Error:', error)
+      alert('Erro ao gerar backup: ' + error.message)
+    } finally {
+      setBackupLoading(false)
+    }
   }
 
   async function handlePasswordChange(e: React.FormEvent) {
@@ -135,6 +182,25 @@ export default function SettingsManager() {
             </div>
           ))}
         </div>
+      </div>
+
+      {/* Backup do Banco de Dados */}
+      <div className="glass" style={{ padding: '30px', marginBottom: '30px' }}>
+        <h3 style={{ fontSize: '1.1rem', marginBottom: '15px', display: 'flex', alignItems: 'center', gap: '10px' }}>
+          <Database size={20} className="text-primary" /> Backup de Dados
+        </h3>
+        <p style={{ fontSize: '0.85rem', color: 'var(--text-dim)', marginBottom: '20px' }}>
+          Exporte todos os seus projetos, notas, tarefas e mensagens em um único arquivo JSON para segurança local.
+        </p>
+        
+        <button 
+          onClick={handleExportBackup} 
+          disabled={backupLoading}
+          className="btn"
+          style={{ width: '100%', justifyContent: 'center' }}
+        >
+          {backupLoading ? 'Gerando Backup...' : <><Download size={18} /> Baixar Backup Completo (.json)</>}
+        </button>
       </div>
 
       <div className="glass" style={{ padding: '30px' }}>
