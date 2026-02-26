@@ -18,24 +18,36 @@ export default function SettingsManager() {
   const [confirmPassword, setConfirmPassword] = useState('')
   const [loading, setLoading] = useState(false)
   const [message, setMessage] = useState<{ type: 'success' | 'error', text: string } | null>(null)
-  
-  const [currentTheme, setCurrentTheme] = useState(() => {
-    if (typeof window !== 'undefined') {
-      return localStorage.getItem('hub-theme') || 'default'
-    }
-    return 'default'
-  })
-
-  const changeTheme = (themeId: string) => {
-    setCurrentTheme(themeId)
-    localStorage.setItem('hub-theme', themeId)
-    document.documentElement.setAttribute('data-theme', themeId)
-  }
+  const [currentTheme, setCurrentTheme] = useState('default')
 
   useEffect(() => {
-    const savedTheme = localStorage.getItem('hub-theme') || 'default'
-    document.documentElement.setAttribute('data-theme', savedTheme)
+    async function fetchTheme() {
+      const { data } = await supabase
+        .from('site_settings')
+        .select('theme_id')
+        .eq('id', 'global_config')
+        .single()
+      if (data) {
+        setCurrentTheme(data.theme_id)
+        document.documentElement.setAttribute('data-theme', data.theme_id)
+      }
+    }
+    fetchTheme()
   }, [])
+
+  const changeTheme = async (themeId: string) => {
+    setCurrentTheme(themeId)
+    document.documentElement.setAttribute('data-theme', themeId)
+    
+    const { error } = await supabase
+      .from('site_settings')
+      .update({ theme_id: themeId })
+      .eq('id', 'global_config')
+
+    if (error) {
+      alert('Erro ao salvar tema no banco: ' + error.message)
+    }
+  }
 
   async function handlePasswordChange(e: React.FormEvent) {
     e.preventDefault()
