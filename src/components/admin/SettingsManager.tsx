@@ -5,7 +5,7 @@
 'use client'
 import { useState, useEffect } from 'react'
 import { supabase } from '@/lib/supabase'
-import { Key, Save, AlertCircle, CheckCircle, Palette, Download, Database } from 'lucide-react'
+import { Key, Save, AlertCircle, CheckCircle, Palette, Download, Database, Upload } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 
 const THEMES = [
@@ -114,6 +114,45 @@ export default function SettingsManager() {
     }
   }
 
+  const handleImportBackup = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+
+    if (!confirm('ATENÇÃO: A importação irá substituir ou mesclar dados existentes. Deseja continuar?')) {
+      e.target.value = ''
+      return
+    }
+
+    try {
+      setBackupLoading(true)
+      const text = await file.text()
+      const data = JSON.parse(text)
+
+      const tables = Object.keys(data)
+      
+      for (const table of tables) {
+        if (data[table] && Array.isArray(data[table])) {
+          // Usamos upsert para atualizar se existir ou inserir se for novo
+          const { error } = await supabase.from(table).upsert(data[table])
+          if (error) {
+            console.error(`Erro ao importar tabela ${table}:`, error)
+            throw new Error(`Falha na tabela ${table}: ${error.message}`)
+          }
+        }
+      }
+
+      alert('Dados importados com sucesso! Recarregando página...')
+      router.refresh()
+      window.location.reload()
+    } catch (error: any) {
+      console.error('Import Error:', error)
+      alert('Erro ao importar backup: ' + error.message)
+    } finally {
+      setBackupLoading(false)
+      e.target.value = ''
+    }
+  }
+
   async function handlePasswordChange(e: React.FormEvent) {
     e.preventDefault()
     setMessage(null)
@@ -187,20 +226,43 @@ export default function SettingsManager() {
       {/* Backup do Banco de Dados */}
       <div className="glass" style={{ padding: '30px', marginBottom: '30px' }}>
         <h3 style={{ fontSize: '1.1rem', marginBottom: '15px', display: 'flex', alignItems: 'center', gap: '10px' }}>
-          <Database size={20} className="text-primary" /> Backup de Dados
+          <Database size={20} className="text-primary" /> Backup e Restauração
         </h3>
         <p style={{ fontSize: '0.85rem', color: 'var(--text-dim)', marginBottom: '20px' }}>
-          Exporte todos os seus projetos, notas, tarefas e mensagens em um único arquivo JSON para segurança local.
+          Exporte ou importe todos os seus projetos, notas, tarefas e mensagens via arquivo JSON.
         </p>
         
-        <button 
-          onClick={handleExportBackup} 
-          disabled={backupLoading}
-          className="btn"
-          style={{ width: '100%', justifyContent: 'center' }}
-        >
-          {backupLoading ? 'Gerando Backup...' : <><Download size={18} /> Baixar Backup Completo (.json)</>}
-        </button>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
+          <button 
+            onClick={handleExportBackup} 
+            disabled={backupLoading}
+            className="btn"
+            style={{ width: '100%', justifyContent: 'center' }}
+          >
+            {backupLoading ? 'Processando...' : <><Download size={18} /> Baixar Backup Completo (.json)</>}
+          </button>
+
+          <label 
+            className="btn" 
+            style={{ 
+              width: '100%', 
+              justifyContent: 'center', 
+              background: 'rgba(255,255,255,0.05)', 
+              border: '1px solid var(--border)',
+              cursor: backupLoading ? 'default' : 'pointer',
+              opacity: backupLoading ? 0.5 : 1
+            }}
+          >
+            <Upload size={18} /> Importar de Arquivo (.json)
+            <input 
+              type="file" 
+              accept=".json" 
+              onChange={handleImportBackup} 
+              disabled={backupLoading}
+              style={{ display: 'none' }} 
+            />
+          </label>
+        </div>
       </div>
 
       <div className="glass" style={{ padding: '30px' }}>
